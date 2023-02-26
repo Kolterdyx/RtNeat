@@ -51,6 +51,17 @@ public class Population
         }
         return Networks[uuid];
     }
+    
+    public Guid GetRandomNetwork()
+    {
+        var index = Random.Shared.Next(0, Networks.Count);
+        using var enumerator = Networks.GetEnumerator();
+        for (var i = 0; i < index; i++)
+        {
+            enumerator.MoveNext();
+        }
+        return enumerator.Current.Key;
+    }
 
     public void RemoveNetwork(Guid uuid)
     {
