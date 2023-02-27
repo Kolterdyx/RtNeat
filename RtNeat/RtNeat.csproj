@@ -4,6 +4,10 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Authors>Ciro García Belmonte</Authors>
+        <PackageProjectUrl>https://github.com/Kolterdyx/RtNeat</PackageProjectUrl>
+        <PackageTags>neat,rtneat,realtimeneat,realtime,neuralnetwork,tweann,ann</PackageTags>
+        <Company>Ciro García Belmonte</Company>
     </PropertyGroup>
 
     <ItemGroup>
