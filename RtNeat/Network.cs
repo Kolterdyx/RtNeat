@@ -300,16 +300,20 @@ public class Network
     {
         if (Nodes.All(n => n.InnovationNumber != nodeInnovationNumber))
         {
-            throw new ArgumentException($"The node with innovation number {nodeInnovationNumber} does not exist in the network");
+            throw new ArgumentException(
+                $"The node with innovation number {nodeInnovationNumber} does not exist in the network");
         }
+
         if (Nodes.Count(n => n.NodeType == NodeType.Hidden) == 0)
         {
             throw new ArgumentException("There are no hidden nodes in the network");
         }
+
         if (Nodes.First(n => n.InnovationNumber == nodeInnovationNumber).NodeType != NodeType.Hidden)
         {
             throw new ArgumentException("Cannot remove an input/output node");
         }
+
         var node = Nodes.First(n => n.InnovationNumber == nodeInnovationNumber);
         var connectionsBefore = GetConnectionsBefore(nodeInnovationNumber);
         var connectionsAfter = GetConnectionsAfter(nodeInnovationNumber);
@@ -351,7 +355,7 @@ public class Network
         var genesA = networkA.GetGenes();
         var genesB = networkB.GetGenes();
         var maxGenes = Math.Max(genesA.Count, genesB.Count);
-        
+
         // Ensure that genesA is the largest network
         if (genesA.Count < genesB.Count)
         {
@@ -383,6 +387,7 @@ public class Network
                 weightDifference += Math.Abs(geneA.Weight - geneB.Weight);
             }
         }
+
         // We may have missed some disjoint genes, because we only checked the genes of the largest network.
         // We need to check the genes of the smallest network to find the remaining disjoint genes.
         for (var i = 0; i < genesB.Count; i++)
@@ -408,7 +413,7 @@ public class Network
             Console.WriteLine("Cannot crossover networks with a distance greater than the compatibility threshold.");
             return null;
         }
-        
+
         var child = new Network(_config);
         var genesA = parentA.GetGenes();
         var genesB = parentB.GetGenes();
@@ -419,7 +424,7 @@ public class Network
         {
             (genesA, genesB) = (genesB, genesA);
         }
-        
+
         // We find matching, disjoint and excess genes as in the distance method.
         var lastGeneB = genesB.LastOrDefault();
         foreach (var geneA in genesA)
@@ -443,7 +448,7 @@ public class Network
                 child.ForceAddConnection(_random.NextDouble() < 0.5 ? geneA : geneB);
             }
         }
-        
+
         // We may have missed some disjoint genes, because we only checked the genes of the largest network.
         // We need to check the genes of the smallest network to find the remaining disjoint genes.
         foreach (var geneB in genesB)
@@ -455,7 +460,7 @@ public class Network
                 child.ForceAddConnection(geneB);
             }
         }
-        
+
         return child;
     }
 
@@ -465,12 +470,14 @@ public class Network
         Connections.Add(connection);
         if (Nodes.All(n => n.InnovationNumber != connection.From))
         {
-            Nodes.Add(new Node(NodeType.Hidden, 0, _random.NextDouble() * 4 - 2, ActivationFunction.GetRandomActivationFunction(_random), connection.From));
+            Nodes.Add(new Node(NodeType.Hidden, 0, _random.NextDouble() * 4 - 2,
+                ActivationFunction.GetRandomActivationFunction(_random), connection.From));
         }
 
         if (Nodes.All(n => n.InnovationNumber != connection.To))
         {
-            Nodes.Add(new Node(NodeType.Hidden, 0, _random.NextDouble() * 4 - 2, ActivationFunction.GetRandomActivationFunction(_random), connection.To));
+            Nodes.Add(new Node(NodeType.Hidden, 0, _random.NextDouble() * 4 - 2,
+                ActivationFunction.GetRandomActivationFunction(_random), connection.To));
         }
     }
 
