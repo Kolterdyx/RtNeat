@@ -203,11 +203,10 @@ public class Network
             node.Reset();
         }
 
-        while (nodesToBeUpdated.Count > 0)
+        var outputNodes = Nodes.Where(n => n.NodeType == NodeType.Output).ToList();
+        foreach (var node in outputNodes)
         {
-            var node = nodesToBeUpdated[0];
             UpdateNode(node.InnovationNumber);
-            nodesToBeUpdated = nodesToBeUpdated.Where(n => !n.Updated).ToList();
         }
     }
 
@@ -219,26 +218,19 @@ public class Network
             return;
         }
 
-        if (node.Updating)
+        if (node.State == NodeState.Visited)
         {
             return;
         }
 
-        node.Updating = true;
-        var nodesBefore = GetNodesBefore(node.InnovationNumber);
-        var connectionsBefore = GetConnectionsBefore(node.InnovationNumber);
-        if (nodesBefore.All(n => n.Updated || n.Updating))
+        if (node.State == NodeState.Visiting)
         {
-            // If all the nodes that are connected to this node have been updated or are currently updating, we can update this node.
-            CalculateNodeValue(node, nodesBefore, connectionsBefore);
+            CalculateNodeValue(node, GetNodesBefore(nodeInnovationNumber), GetConnectionsBefore(nodeInnovationNumber));
             return;
         }
 
-        var nodesToBeUpdated = nodesBefore.Where(n => !n.Updated && !n.Updating).ToList();
-        foreach (var nodeToBeUpdated in nodesToBeUpdated)
-        {
-            UpdateNode(nodeToBeUpdated.InnovationNumber);
-        }
+        node.State = NodeState.Visiting;
+        CalculateNodeValue(node, GetNodesBefore(nodeInnovationNumber), GetConnectionsBefore(nodeInnovationNumber));
     }
 
     private void CalculateNodeValue(Node node, List<Node> nodesBefore, List<Connection> connectionsBefore)

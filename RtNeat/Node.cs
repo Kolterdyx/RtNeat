@@ -17,8 +17,7 @@ public class Node : Gene
 
     public ActivationFunctionType Activation { get; private set; }
 
-    [JsonIgnore] public bool Updated { get; private set; }
-    [JsonIgnore] public bool Updating { get; set; }
+    [JsonIgnore] public NodeState State { get; set; }
 
     public Node(NodeType type, long innovationNumber) : this(type, 0, 0, ActivationFunctionType.Sigmoid,
         innovationNumber)
@@ -40,16 +39,14 @@ public class Node : Gene
         Value = value;
         Bias = bias;
         Activation = activation;
-        Updated = false;
-        Updating = false;
+        State = NodeState.Unvisited;
     }
 
 
     public double Update(double value)
     {
         Value = ActivationFunction.Call(Activation, value + Bias);
-        Updated = true;
-        Updating = false;
+        State = NodeState.Visited;
         return Value;
     }
 
@@ -77,8 +74,7 @@ public class Node : Gene
 
     public void Reset()
     {
-        Updated = false;
-        Updating = false;
+        State = NodeState.Unvisited;
     }
 
     public void MutateBias(Random random, Configuration config)
