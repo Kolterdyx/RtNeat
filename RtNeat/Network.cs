@@ -29,6 +29,15 @@ public class Network
 
     public Network(int inputs, int outputs)
     {
+        if (inputs < 1)
+        {
+            throw new ArgumentException("Network must have at least one input");
+        }
+        if (outputs < 1)
+        {
+            throw new ArgumentException("Network must have at least one output");
+        }
+        
         for (var i = 0; i < inputs; i++)
         {
             var node = new Node(
