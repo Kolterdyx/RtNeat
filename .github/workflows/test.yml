@@ -6,8 +6,10 @@ name: .NET
 on:
   push:
     branches: [ "master" ]
+    files: [ "**/*.cs", "**/*.csproj", "**/*.sln", ".github/workflows/**" ]
   pull_request:
     branches: [ "master" ]
+    files: [ "**/*.cs", "**/*.csproj", "**/*.sln", ".github/workflows/**" ]
 
 jobs:
   build:
