@@ -50,7 +50,6 @@ public class Network
                 GenePool.GetNodeInnovationNumber(-2, i));
             Nodes.Add(node);
         }
-
     }
 
     public static void SetSeed(int seed)
@@ -86,7 +85,7 @@ public class Network
         _config = configuration;
     }
 
-    public long InsertNode(long connection)
+    private long InsertNode(long connection)
     {
         // Disable the connection
         var disabledConnection = Connections.Find(c => c.InnovationNumber == connection);
@@ -251,7 +250,7 @@ public class Network
         }
 
         // Add a new node
-        if (_random.NextDouble() < _config.AddNodeChance&& Connections.Count > 0)
+        if (_random.NextDouble() < _config.AddNodeChance && Connections.Count > 0)
         {
             var connection = Connections[_random.Next(Connections.Count)];
             InsertNode(connection.InnovationNumber);
