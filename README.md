@@ -1,4 +1,4 @@
-# RtNeat [![.NET](https://github.com/Kolterdyx/RtNeat/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/Kolterdyx/RtNeat/actions/workflows/test.yml)
+# RtNeat [![.NET](https://github.com/Kolterdyx/RtNeat/actions/workflows/test.yml/badge.svg)](https://github.com/Kolterdyx/RtNeat/actions/workflows/test.yml)
 An RtNeat library for C#
 
 ## What is RtNeat?
