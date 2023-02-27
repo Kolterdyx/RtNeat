@@ -188,13 +188,6 @@ public class Network
 
     public void Update()
     {
-        // Update all nodes. To update each node, we need to know the sum of all the inputs to that node.
-        // To get the sum of all the inputs to a node, we need to know the value of all the nodes that are connected to that node.
-        // To achieve this, we will iterate over all of the nodes, check if all of the nodes that are connected to that node have been updated.
-        // If they have, we can update the node. If not, we will iterate over those nodes and update them first. This will be done recursively.
-        // If when trying to update a node, we find that it is already updating, but not updated yet, it means that there is a cycle in the network.
-        // In this case, we will break the cycle by ignoring that the node is not updated yet and get its value from the previous iteration.
-
         var nodesToBeUpdated = Nodes.Where(n => n.NodeType != NodeType.Input).ToList();
         foreach (var node in nodesToBeUpdated)
         {
@@ -203,38 +196,51 @@ public class Network
 
         while (nodesToBeUpdated.Count > 0)
         {
-            // Get the last node that is not updated yet. We get the last one because if we add a node to the list, it will be added at the end.
-            var node = nodesToBeUpdated.Last();
-            node.Updating = true;
-            // Get all the nodes that are connected to this node
-            var nodesBefore = GetNodesBefore(node.InnovationNumber);
-            var connectionsBefore = GetConnectionsBefore(node.InnovationNumber);
-            // Check if all the nodes that are connected to this node have been updated or are currently updating
-            var allNodesBeforeUpdated = nodesBefore.All(n => n.Updated || n.Updating);
-            if (allNodesBeforeUpdated)
-            {
-                // If all the nodes that are connected to this node have been updated or are currently updating, we can update this node
-                var sum = 0.0;
-                for (var i = 0; i < nodesBefore.Count; i++)
-                {
-                    sum += nodesBefore[i].Value * connectionsBefore[i].Weight;
-                }
-
-                node.Update(sum);
-                nodesToBeUpdated.Remove(node);
-            }
-            else
-            {
-                // If not, we will update the nodes that are connected to this node first
-                foreach (var nodeBefore in nodesBefore)
-                {
-                    if (nodeBefore is { Updated: false, Updating: false })
-                    {
-                        nodesToBeUpdated.Add(nodeBefore);
-                    }
-                }
-            }
+            var node = nodesToBeUpdated[0];
+            UpdateNode(node.InnovationNumber);
+            nodesToBeUpdated = nodesToBeUpdated.Where(n => !n.Updated).ToList();
         }
+    }
+
+    private void UpdateNode(long nodeInnovationNumber)
+    {
+        var node = Nodes.Find(n => n.InnovationNumber == nodeInnovationNumber);
+        if (node == null)
+        {
+            return;
+        }
+
+        if (node.Updating)
+        {
+            return;
+        }
+
+        node.Updating = true;
+        var nodesBefore = GetNodesBefore(node.InnovationNumber);
+        var connectionsBefore = GetConnectionsBefore(node.InnovationNumber);
+        if (nodesBefore.All(n => n.Updated || n.Updating))
+        {
+            // If all the nodes that are connected to this node have been updated or are currently updating, we can update this node.
+            CalculateNodeValue(node, nodesBefore, connectionsBefore);
+            return;
+        }
+
+        var nodesToBeUpdated = nodesBefore.Where(n => !n.Updated && !n.Updating).ToList();
+        foreach (var nodeToBeUpdated in nodesToBeUpdated)
+        {
+            UpdateNode(nodeToBeUpdated.InnovationNumber);
+        }
+    }
+
+    private void CalculateNodeValue(Node node, List<Node> nodesBefore, List<Connection> connectionsBefore)
+    {
+        var sum = 0.0;
+        for (var i = 0; i < nodesBefore.Count; i++)
+        {
+            sum += nodesBefore[i].Value * connectionsBefore[i].Weight;
+        }
+
+        node.Update(sum);
     }
 
     public void Mutate()
