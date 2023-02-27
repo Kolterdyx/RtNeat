@@ -12,34 +12,34 @@ namespace RtNeat;
 public class Configuration
 {
     
-    [JsonInclude] public int InputCount { get; }
-    [JsonInclude] public int OutputCount { get; }
-    [JsonInclude] public bool LimitPopulationSize { get; }
-    [JsonInclude] public int PopulationSize { get; }
+    [JsonInclude] public int InputCount { get; set; }
+    [JsonInclude] public int OutputCount { get; set; }
+    [JsonInclude] public bool LimitPopulationSize { get; set; }
+    [JsonInclude] public int PopulationSize { get; set; }
 
-    [JsonInclude] public bool LimitNodeCount { get; }
-    [JsonInclude] public int MaxNodeCount { get; }
-    [JsonInclude] public bool LimitConnectionCount { get; }
-    [JsonInclude] public int MaxConnectionCount { get; }
+    [JsonInclude] public bool LimitNodeCount { get; set; }
+    [JsonInclude] public int MaxNodeCount { get; set; }
+    [JsonInclude] public bool LimitConnectionCount { get; set; }
+    [JsonInclude] public int MaxConnectionCount { get; set; }
 
-    [JsonInclude] public double WeightMutationRate { get; }
-    [JsonInclude] public double WeightMutationChance { get; }
-    [JsonInclude] public double BiasMutationRate { get; }
-    [JsonInclude] public double BiasMutationChance { get; }
+    [JsonInclude] public double WeightMutationRate { get; set; }
+    [JsonInclude] public double WeightMutationChance { get; set; }
+    [JsonInclude] public double BiasMutationRate { get; set; }
+    [JsonInclude] public double BiasMutationChance { get; set; }
 
-    [JsonInclude] public double ChangeActivationFunctionChance { get; }
+    [JsonInclude] public double ChangeActivationFunctionChance { get; set; }
 
-    [JsonInclude] public double AddNodeChance { get; }
-    [JsonInclude] public double RemoveNodeChance { get; }
-    [JsonInclude] public double AddConnectionChance { get; }
-    [JsonInclude] public double DisableConnectionChance { get; }
+    [JsonInclude] public double AddNodeChance { get; set; }
+    [JsonInclude] public double RemoveNodeChance { get; set; }
+    [JsonInclude] public double AddConnectionChance { get; set; }
+    [JsonInclude] public double DisableConnectionChance { get; set; }
 
-    [JsonInclude] public double CompatibilityThreshold { get; }
-    [JsonInclude] public double CompatibilityExcessCoefficient { get; }
-    [JsonInclude] public double CompatibilityDisjointCoefficient { get; }
-    [JsonInclude] public double CompatibilityWeightCoefficient { get; }
+    [JsonInclude] public double CompatibilityThreshold { get; set; }
+    [JsonInclude] public double CompatibilityExcessCoefficient { get; set; }
+    [JsonInclude] public double CompatibilityDisjointCoefficient { get; set; }
+    [JsonInclude] public double CompatibilityWeightCoefficient { get; set; }
 
-    [JsonInclude] public List<string> SpeciesNames { get; }
+    [JsonInclude] public List<string> SpeciesNames { get; set; }
 
     public Configuration()
     {
