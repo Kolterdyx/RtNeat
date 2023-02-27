@@ -17,6 +17,11 @@ public class Network
     [JsonInclude] public List<Node> Nodes { get; private set; } = new();
     [JsonInclude] public Guid Species { get; set; }
 
+    public int InputCount => Nodes.Count(n => n.NodeType == NodeType.Input);
+    public int OutputCount => Nodes.Count(n => n.NodeType == NodeType.Output);
+
+    public int HiddenCount => Nodes.Count(n => n.NodeType == NodeType.Hidden);
+
     private static readonly GenePool GenePool = GenePool.GetInstance();
 
     private static Random _random = new Random();
