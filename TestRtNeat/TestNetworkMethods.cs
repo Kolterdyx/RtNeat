@@ -238,9 +238,9 @@ public class TestNetworkMethods
   "HiddenCount": 1
 }
 """);
-        
+
         double[] inputs = { 0.79, 2.31, 0.19 };
-        
+
         Assert.That(net, Is.Not.Null);
         net.FeedInputs(inputs);
         net.Update();
@@ -248,5 +248,23 @@ public class TestNetworkMethods
         Assert.That(output, Is.Not.Null);
         Assert.That(output, Has.Length.EqualTo(1));
         Assert.That(output[0] - 2.363196, Is.LessThan(0.0000001));
+    }
+
+    [Test]
+    public void TestNetwork_ValidOutput_Recurrent()
+    {
+        Assert.Fail("Not implemented yet.");
+    }
+
+    [Test]
+    public void TestNetwork_ValidOutput_Backwards()
+    {
+        Assert.Fail("Not implemented yet.");
+    }
+
+    [Test]
+    public void TestNetwork_ValidOutput_DisabledConnections()
+    {
+        Assert.Fail("Not implemented yet.");
     }
 }
