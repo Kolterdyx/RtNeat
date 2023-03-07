@@ -164,7 +164,7 @@ public class TestNetworkMethods
     }
 
     [Test]
-    public void TestNetwork_ValidOutput()
+    public void TestNetwork_ValidOutput_Simple()
     {
         var net = Network.FromJson("""
 {
