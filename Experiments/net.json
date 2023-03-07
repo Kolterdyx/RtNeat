@@ -1,0 +1,70 @@
+{
+  "Connections": [
+    {
+      "From": 0,
+      "To": 3,
+      "Weight": -1.42,
+      "Enabled": true,
+      "InnovationNumber": 5
+    },{
+      "From": 1,
+      "To": 3,
+      "Weight": -0.8,
+      "Enabled": true,
+      "InnovationNumber": 6
+    },{
+      "From": 2,
+      "To": 4,
+      "Weight": 1.13,
+      "Enabled": true,
+      "InnovationNumber": 7
+    },{
+      "From": 3,
+      "To": 4,
+      "Weight": -0.74,
+      "Enabled": true,
+      "InnovationNumber": 8
+    }
+  ],
+  "Nodes": [
+    {
+      "NodeType": 0,
+      "Value": 0,
+      "Bias": -0.12,
+      "Activation": 0,
+      "InnovationNumber": 0
+    },
+    {
+      "NodeType": 0,
+      "Value": 0,
+      "Bias": -0.08,
+      "Activation": 0,
+      "InnovationNumber": 1
+    },
+    {
+      "NodeType": 0,
+      "Value": 0,
+      "Bias": 0.11,
+      "Activation": 0,
+      "InnovationNumber": 2
+    },
+    {
+      "NodeType": 1,
+      "Value": 0,
+      "Bias": 1.96,
+      "Activation": 0,
+      "InnovationNumber": 3
+    },
+    {
+      "NodeType": 2,
+      "Value": 0,
+      "Bias": -0.53,
+      "Activation": 0,
+      "InnovationNumber": 4
+    }
+  ],
+  "Species": "00000000-0000-0000-0000-000000000000",
+  "InputCount": 2,
+  "OutputCount": 1,
+  "HiddenCount": 1
+}
