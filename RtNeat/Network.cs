@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace RtNeat;
@@ -557,5 +558,15 @@ public class Network
         }
 
         return connections;
+    }
+
+    public static Network? FromJson(string jsonString)
+    {
+        return JsonSerializer.Deserialize<Network>(jsonString);
+    }
+
+    public string ToJson()
+    {
+        return JsonSerializer.Serialize(this);
     }
 }
