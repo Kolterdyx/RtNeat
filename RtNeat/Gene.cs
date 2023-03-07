@@ -2,32 +2,29 @@ using System.Text.Json.Serialization;
 
 namespace RtNeat;
 
-public class Gene
+public abstract class Gene
 {
     public long InnovationNumber { get; }
-    public GeneType GeneType { get; }
 
     [JsonConstructor]
-    protected Gene(GeneType geneType, long innovationNumber)
+    protected Gene(long innovationNumber)
     {
         InnovationNumber = innovationNumber;
-        GeneType = geneType;
     }
 
     protected Gene(Gene gene)
     {
         InnovationNumber = gene.InnovationNumber;
-        GeneType = gene.GeneType;
     }
 
     public override string ToString()
     {
-        return $"Gene: {InnovationNumber} - {GeneType}";
+        return $"Gene: {InnovationNumber}";
     }
 
     public bool Equals(Gene gene)
     {
-        return InnovationNumber == gene.InnovationNumber && GeneType == gene.GeneType;
+        return InnovationNumber == gene.InnovationNumber;
     }
 
     public bool Equals(long innovationNumber)
@@ -37,6 +34,8 @@ public class Gene
 
     public override int GetHashCode()
     {
-        return InnovationNumber.GetHashCode() ^ GeneType.GetHashCode();
+        return InnovationNumber.GetHashCode();
     }
+
+    public abstract GeneType GetGeneType();
 }

@@ -12,8 +12,7 @@ public class Connection : Gene
 
     
     [JsonConstructor]
-    public Connection(long from, long to, double weight, bool enabled, long innovationNumber) : base(
-        GeneType.Connection, innovationNumber)
+    public Connection(long from, long to, double weight, bool enabled, long innovationNumber) : base(innovationNumber)
     {
         From = from;
         To = to;
@@ -44,16 +43,20 @@ public class Connection : Gene
         }
 
         var connection = (Connection)obj;
-        return InnovationNumber == connection.InnovationNumber && GeneType == connection.GeneType &&
+        return InnovationNumber == connection.InnovationNumber &&
                From == connection.From && To == connection.To && Weight.Equals(connection.Weight);
     }
 
     public override int GetHashCode()
     {
-        return InnovationNumber.GetHashCode() ^ GeneType.GetHashCode() ^ From.GetHashCode() ^ To.GetHashCode() ^
-               Weight.GetHashCode();
+        return InnovationNumber.GetHashCode() ^ From.GetHashCode() ^ To.GetHashCode();
     }
-    
+
+    public override GeneType GetGeneType()
+    {
+        return GeneType.Connection;
+    }
+
     public void Disable()
     {
         Enabled = false;

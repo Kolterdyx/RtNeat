@@ -32,14 +32,18 @@ public class Node : Gene
 
     [JsonConstructor]
     public Node(NodeType nodeType, double value, double bias, ActivationFunctionType activation,
-        long innovationNumber) : base(GeneType.Node,
-        innovationNumber)
+        long innovationNumber) : base(innovationNumber)
     {
         NodeType = nodeType;
         Value = value;
         Bias = bias;
         Activation = activation;
         State = NodeState.Unvisited;
+    }
+
+    public override GeneType GetGeneType()
+    {
+        return GeneType.Node;
     }
 
 
